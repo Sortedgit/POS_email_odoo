@@ -1,0 +1,44 @@
+<odoo>
+    <record id="poscrm_contacts" model="ir.actions.act_window">
+        <field name="name">POS Contacts</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="base.view_partner_tree"/>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add a new POS contact.
+          </p>
+        </field>
+    </record>
+        
+    <record id="poscrm_action_contacts_view_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="0"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="base.view_partner_tree"/>
+        <field name="act_window_id" ref="poscrm_contacts"/>
+    </record>
+        
+    <record id="poscrm_action_contacts_view_kanban" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="base.res_partner_kanban_view"/>
+        <field name="act_window_id" ref="poscrm_contacts"/>
+    </record>
+    
+<record id="poscrm_res_partner_tree" model="ir.ui.view">
+    <field name="name">res.partner.extended</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_tree"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='email']" position="after">
+            <field name="create_date"/>
+            </xpath>
+    </field>
+</record>
+
+
+    <menuitem name="POSCRM" id="poscrm.menu_root" parent="point_of_sale.menu_point_root" sequence = "93" action = "poscrm_contacts"/>
+
+</odoo>
